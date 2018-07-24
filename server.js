@@ -42,10 +42,26 @@ app.post('/shopping-list', jsonParser, (req, res) => {
       return res.status(400).send(message);
     }
   }
-
   const item = ShoppingList.create(req.body.name, req.body.budget);
   res.status(201).json(item);
 });
+
+
+app.post('/recipes', jsonParser, (req,res) =>{
+  const reqField = ['name','ingredients'];
+  for(let i=0; i<reqField.length; i++){
+    const fyeld = reqField[i];
+    if(!fyeld in req.body){
+      const message = `Missing\`${fyeld}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
+  const item2 = Recipes.create(req.body.name, req.body.budget);
+  res.status(201).json(item2);
+});
+
+
 
 
 app.get('/recipes', (req, res) => {
